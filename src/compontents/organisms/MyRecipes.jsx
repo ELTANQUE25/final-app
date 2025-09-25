@@ -7,8 +7,8 @@ const MyRecipes = () => {
   const [instructions, setInstructions] = useState('');
   const [image, setImage] = useState(null);
   const [recipes, setRecipes] = useState([]);
+  const [editId, setEditId] = useState(null); // id della ricetta in modifica
 
-  // Carica le ricette salvate all’avvio
   useEffect(() => {
     const savedRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
     setRecipes(savedRecipes);
@@ -16,17 +16,39 @@ const MyRecipes = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newRecipe = {
-      id: Date.now(),
-      title,
-      ingredients,
-      instructions,
-      image: image ? URL.createObjectURL(image) : null
-    };
-    const updatedRecipes = [...recipes, newRecipe];
-    setRecipes(updatedRecipes);
-    localStorage.setItem('myRecipes', JSON.stringify(updatedRecipes));
 
+    if (editId) {
+      // Modifica ricetta esistente
+      const updatedRecipes = recipes.map(r => {
+        if (r.id === editId) {
+          return {
+            ...r,
+            title,
+            ingredients,
+            instructions,
+            image: image ? URL.createObjectURL(image) : r.image
+          };
+        }
+        return r;
+      });
+      setRecipes(updatedRecipes);
+      localStorage.setItem('myRecipes', JSON.stringify(updatedRecipes));
+      setEditId(null);
+    } else {
+      // Crea nuova ricetta
+      const newRecipe = {
+        id: Date.now(),
+        title,
+        ingredients,
+        instructions,
+        image: image ? URL.createObjectURL(image) : null
+      };
+      const updatedRecipes = [...recipes, newRecipe];
+      setRecipes(updatedRecipes);
+      localStorage.setItem('myRecipes', JSON.stringify(updatedRecipes));
+    }
+
+    // Reset campi
     setTitle('');
     setIngredients('');
     setInstructions('');
@@ -39,9 +61,17 @@ const MyRecipes = () => {
     localStorage.setItem('myRecipes', JSON.stringify(updatedRecipes));
   };
 
+  const handleEdit = (recipe) => {
+    setTitle(recipe.title);
+    setIngredients(recipe.ingredients);
+    setInstructions(recipe.instructions);
+    setImage(null); // per semplicità, lasciamo immagine originale finché non carichi nuova
+    setEditId(recipe.id);
+  };
+
   return (
     <div className="my-recipes-container">
-      <p>Qui potrai creare le tue ricette</p>
+      <p>Qui potrai creare e modificare le tue ricette</p>
 
       <form className="my-recipes-form" onSubmit={handleSubmit}>
         <input
@@ -68,7 +98,7 @@ const MyRecipes = () => {
           accept="image/*"
           onChange={(e) => setImage(e.target.files[0])}
         />
-        <button type="submit">Crea ricetta</button>
+        <button type="submit">{editId ? 'Salva modifiche' : 'Crea ricetta'}</button>
       </form>
 
       <div className="created-recipes">
@@ -78,12 +108,8 @@ const MyRecipes = () => {
             <h3>{r.title}</h3>
             <p><strong>Ingredienti:</strong> {r.ingredients}</p>
             <p><strong>Preparazione:</strong> {r.instructions}</p>
-            <button
-              className="delete-btn"
-              onClick={() => handleDelete(r.id)}
-            >
-              Elimina
-            </button>
+            <button className="delete-btn" onClick={() => handleDelete(r.id)}>Elimina</button>
+            <button className="edit-btn" onClick={() => handleEdit(r)}>Modifica</button>
           </div>
         ))}
       </div>
