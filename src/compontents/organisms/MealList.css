@@ -1,9 +1,7 @@
-/* src/components/organisms/MealList.css */
-
 .search-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* centra tutto orizzontalmente */
+  align-items: center;
   justify-content: center;
   margin-bottom: 20px;
   gap: 10px;
@@ -24,26 +22,10 @@
 }
 
 .search-box input {
-  flex: 1; /* l’input occupa tutto lo spazio disponibile */
+  flex: 1;
   padding: 8px 12px;
   border-radius: 5px;
   border: 1px solid #ccc;
-}
-
-.search-box input {
-  flex: 1; /* l’input occupa tutto lo spazio disponibile */
-  padding: 8px 12px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-
-.search-container input {
-  padding: 8px 12px;
-  width: 250px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  text-align: center; /* opzionale: centra il testo dentro l’input */
 }
 
 .search-container button {
@@ -60,15 +42,11 @@
   background-color: #e76f3c;
 }
 
-.search-container button:hover {
-  background-color: #e76f3c;
-}
-
 /* Griglia delle card */
 .meal-list {
   display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
 }
 
 /* Stile per ogni card */
@@ -110,6 +88,7 @@
 .meal-card:hover {
   transform: translateY(-5px);
 }
+
 .pagination {
   display: flex;
   justify-content: center;
@@ -134,4 +113,21 @@
 
 .pagination span {
   font-weight: bold;
+}
+
+/* Media query per mobile */
+@media (max-width: 600px) {
+  .meal-list {
+    grid-template-columns: 1fr; /* una card per riga */
+    gap: 10px;
+  }
+
+  .search-box {
+    flex-direction: column; /* input e button impilati */
+  }
+
+  .search-box input,
+  .search-box button {
+    width: 100%;
+  }
 }

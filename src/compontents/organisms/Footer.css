@@ -43,3 +43,13 @@
 .footer-social a:hover {
   color: #ddd; /* cambia colore al passaggio del mouse */
 }
+
+/* Media query per mobile */
+@media (max-width: 600px) {
+
+  .footer-social {
+
+    gap: 10px;
+    font-size: 1.5rem;       /* icone più grandi su mobile */
+  }
+}

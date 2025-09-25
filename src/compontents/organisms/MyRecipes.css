@@ -29,12 +29,10 @@
 
 /* Griglia solo per le ricette create */
 .created-recipes {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    gap: 8px;
-    gap: 8px;
-    margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 40px;
 }
 
 /* Card delle ricette */
@@ -89,8 +87,25 @@
   background-color: #2980b9;
 }
 
-.Ricette{
-     text-align: center;
+.Ricette {
+  text-align: center;
   font-weight: bold;
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
+}
+
+/* Media query per mobile */
+@media (max-width: 600px) {
+  .created-recipes {
+    grid-template-columns: 1fr; /* una card per riga */
+    gap: 10px;
+  }
+
+  .my-recipes-form {
+    max-width: 90%;
+  }
+
+  .card-buttons {
+    flex-direction: column;
+    gap: 5px;
+  }
 }

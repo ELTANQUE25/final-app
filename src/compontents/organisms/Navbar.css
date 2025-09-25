@@ -1,5 +1,3 @@
-/* src/components/organisms/Navbar.css */
-
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -8,6 +6,7 @@
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
+  position: relative;
 }
 
 .navbar-logo {
@@ -15,16 +14,16 @@
   font-weight: bold;
 }
 
-.navbar-logo .logo{
-    height: 50px;
-    width: 60px;
+.navbar-logo .logo {
+  height: 50px;
+  width: 60px;
 }
 
 .navbar-links {
   list-style: none;
   display: flex;
   gap: 20px;
-  margin-right: 20px;
+  margin: 0;
   padding: 0;
 }
 
@@ -35,4 +34,41 @@
 
 .navbar-links li:hover {
   opacity: 0.8;
+}
+
+/* Hamburger menu (hidden desktop) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.hamburger .line {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .navbar-links {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #9CB380;
+    flex-direction: column;
+    width: 200px;
+    padding: 10px;
+    display: none;
+    border-radius: 0 0 5px 5px;
+  }
+
+  .navbar-links.open {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+  }
 }
