@@ -9,6 +9,7 @@ const MyRecipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [editId, setEditId] = useState(null); // id della ricetta in modifica
 
+  // Carica le ricette salvate all’avvio
   useEffect(() => {
     const savedRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
     setRecipes(savedRecipes);
@@ -48,7 +49,7 @@ const MyRecipes = () => {
       localStorage.setItem('myRecipes', JSON.stringify(updatedRecipes));
     }
 
-    // Reset campi
+    // Resetta i campi
     setTitle('');
     setIngredients('');
     setInstructions('');
@@ -65,42 +66,24 @@ const MyRecipes = () => {
     setTitle(recipe.title);
     setIngredients(recipe.ingredients);
     setInstructions(recipe.instructions);
-    setImage(null); // per semplicità, lasciamo immagine originale finché non carichi nuova
+    setImage(null);
     setEditId(recipe.id);
   };
 
   return (
     <div className="my-recipes-container">
-      <p>Qui potrai creare e modificare le tue ricette</p>
+      <p className='Ricette'>Qui potrai creare e modificare le tue ricette</p>
 
+      {/* Form verticale centrata */}
       <form className="my-recipes-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Titolo della ricetta"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-        <textarea
-          placeholder="Ingredienti"
-          value={ingredients}
-          onChange={(e) => setIngredients(e.target.value)}
-          required
-        />
-        <textarea
-          placeholder="Preparazione"
-          value={instructions}
-          onChange={(e) => setInstructions(e.target.value)}
-          required
-        />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setImage(e.target.files[0])}
-        />
+        <input type="text" placeholder="Titolo della ricetta" value={title} onChange={(e) => setTitle(e.target.value)} required />
+        <textarea placeholder="Ingredienti" value={ingredients} onChange={(e) => setIngredients(e.target.value)} required />
+        <textarea placeholder="Preparazione" value={instructions} onChange={(e) => setInstructions(e.target.value)} required />
+        <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
         <button type="submit">{editId ? 'Salva modifiche' : 'Crea ricetta'}</button>
       </form>
 
+      {/* Griglia delle ricette create */}
       <div className="created-recipes">
         {recipes.map((r) => (
           <div className="recipe-card" key={r.id}>
@@ -108,8 +91,10 @@ const MyRecipes = () => {
             <h3>{r.title}</h3>
             <p><strong>Ingredienti:</strong> {r.ingredients}</p>
             <p><strong>Preparazione:</strong> {r.instructions}</p>
-            <button className="delete-btn" onClick={() => handleDelete(r.id)}>Elimina</button>
-            <button className="edit-btn" onClick={() => handleEdit(r)}>Modifica</button>
+            <div className="card-buttons">
+              <button className="delete-btn" onClick={() => handleDelete(r.id)}>Elimina</button>
+              <button className="edit-btn" onClick={() => handleEdit(r)}>Modifica</button>
+            </div>
           </div>
         ))}
       </div>

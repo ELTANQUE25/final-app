@@ -1,20 +1,15 @@
-.my-recipes-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
 .my-recipes-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 100%;
   max-width: 500px;
+  margin: 0 auto;
 }
 
 .my-recipes-form input,
-.my-recipes-form textarea {
+.my-recipes-form textarea,
+.my-recipes-form button {
   padding: 8px 12px;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -25,8 +20,6 @@
   background-color: #ff7f50;
   color: white;
   border: none;
-  padding: 10px;
-  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -34,13 +27,17 @@
   background-color: #e76f3c;
 }
 
+/* Griglia solo per le ricette create */
 .created-recipes {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+    gap: 8px;
+    margin-top: 40px;
 }
 
+/* Card delle ricette */
 .recipe-card {
   background-color: white;
   border: 1px solid #ddd;
@@ -48,6 +45,9 @@
   padding: 15px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .recipe-card img {
@@ -56,8 +56,14 @@
   margin-bottom: 10px;
 }
 
-.delete-btn {
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
   margin-top: 10px;
+}
+
+.delete-btn {
   background-color: #e74c3c;
   color: white;
   border: none;
@@ -71,8 +77,6 @@
 }
 
 .edit-btn {
-  margin-top: 5px;
-  margin-left: 5px;
   background-color: #3498db;
   color: white;
   border: none;
@@ -83,4 +87,10 @@
 
 .edit-btn:hover {
   background-color: #2980b9;
+}
+
+.Ricette{
+     text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px; 
 }
