@@ -5,24 +5,27 @@ import './MealCard.css';
 const MealCard = ({ meal }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
-  // Carica lo stato dei preferiti da localStorage
+  // Controlla se la ricetta è già nei preferiti all'avvio
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    setIsFavorite(favorites.includes(meal.idMeal));
+    const exists = favorites.some((m) => m.idMeal === meal.idMeal);
+    setIsFavorite(exists);
   }, [meal.idMeal]);
 
   const toggleFavorite = () => {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     let updatedFavorites;
-    if (favorites.includes(meal.idMeal)) {
+
+    if (isFavorite) {
       // Rimuovi dai preferiti
-      updatedFavorites = favorites.filter((id) => id !== meal.idMeal);
+      updatedFavorites = favorites.filter((m) => m.idMeal !== meal.idMeal);
       setIsFavorite(false);
     } else {
-      // Aggiungi ai preferiti
-      updatedFavorites = [...favorites, meal.idMeal];
+      // Aggiungi ai preferiti (salviamo l'intero oggetto meal)
+      updatedFavorites = [...favorites, meal];
       setIsFavorite(true);
     }
+
     localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };
 
@@ -42,7 +45,7 @@ const MealCard = ({ meal }) => {
         className={`favorite-btn ${isFavorite ? 'favorited' : ''}`}
         onClick={toggleFavorite}
       >
-        {isFavorite ? '❤️ Preferito' : '🤍'}
+        {isFavorite ? '❤️ Preferito' : '🤍 Aggiungi ai preferiti'}
       </button>
     </div>
   );
