@@ -4,9 +4,10 @@ import './MealCard.css';
 import { translateCategory, translateMeal } from '../../utils/translation';
 
 const MealCard = ({ meal }) => {
+  if (!meal || !meal.idMeal) return null; // evita card vuote
+
   const [isFavorite, setIsFavorite] = useState(false);
 
-  // Controlla se la ricetta è già nei preferiti all'avvio
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     const exists = favorites.some((m) => m.idMeal === meal.idMeal);
@@ -18,16 +19,13 @@ const MealCard = ({ meal }) => {
     let updatedFavorites;
 
     if (isFavorite) {
-      // Rimuovi dai preferiti
       updatedFavorites = favorites.filter((m) => m.idMeal !== meal.idMeal);
       setIsFavorite(false);
     } else {
-      // Aggiungi la ricetta completa ai preferiti
       updatedFavorites = [...favorites, meal];
       setIsFavorite(true);
     }
 
-    // Salva aggiornamento in localStorage
     localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };
 
@@ -41,8 +39,6 @@ const MealCard = ({ meal }) => {
           Scopri la ricetta
         </a>
       )}
-
-      {/* Pulsante preferito */}
       <button
         className={`favorite-btn ${isFavorite ? 'favorited' : ''}`}
         onClick={toggleFavorite}

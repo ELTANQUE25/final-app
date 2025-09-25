@@ -20,7 +20,8 @@ const App = () => {
   useEffect(() => {
     if (currentPage === 'favorites') {
       const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-      setFavoriteMeals(storedFavorites);
+      const validFavorites = storedFavorites.filter((m) => m && m.idMeal); // filtra card vuote
+      setFavoriteMeals(validFavorites);
     }
   }, [currentPage]);
 
