@@ -27,11 +27,16 @@ const MyRecipes = () => {
     setRecipes(updatedRecipes);
     localStorage.setItem('myRecipes', JSON.stringify(updatedRecipes));
 
-    // Resetta i campi
     setTitle('');
     setIngredients('');
     setInstructions('');
     setImage(null);
+  };
+
+  const handleDelete = (id) => {
+    const updatedRecipes = recipes.filter(r => r.id !== id);
+    setRecipes(updatedRecipes);
+    localStorage.setItem('myRecipes', JSON.stringify(updatedRecipes));
   };
 
   return (
@@ -73,6 +78,12 @@ const MyRecipes = () => {
             <h3>{r.title}</h3>
             <p><strong>Ingredienti:</strong> {r.ingredients}</p>
             <p><strong>Preparazione:</strong> {r.instructions}</p>
+            <button
+              className="delete-btn"
+              onClick={() => handleDelete(r.id)}
+            >
+              Elimina
+            </button>
           </div>
         ))}
       </div>
