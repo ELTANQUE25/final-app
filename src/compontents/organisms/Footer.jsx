@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="footer-links">
         <a href="#">Privacy</a>
         <a href="#">Termini di servizio</a>
-        <a href="#">Contatti</a>
+        <a href="mailto:mealapp@gmail.com">Contatti</a> {/* Link mailto */}
       </div>
     </footer>
   );
