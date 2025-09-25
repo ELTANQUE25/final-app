@@ -1,6 +1,7 @@
 // src/components/molecules/MealCard.jsx
 import React, { useState, useEffect } from 'react';
 import './MealCard.css';
+import { translateCategory, translateMeal } from '../../utils/translation';
 
 const MealCard = ({ meal }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -32,9 +33,9 @@ const MealCard = ({ meal }) => {
 
   return (
     <div className="meal-card">
-      <h3>{meal.strMeal}</h3>
+      <h3>{translateMeal(meal.strMeal)}</h3>
       <img src={meal.strMealThumb} alt={meal.strMeal} />
-      <p>{meal.strCategory}</p>
+      <p>{translateCategory(meal.strCategory)}</p>
       {meal.strSource && (
         <a href={meal.strSource} target="_blank" rel="noopener noreferrer">
           Scopri la ricetta
