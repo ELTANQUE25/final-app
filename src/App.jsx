@@ -5,6 +5,8 @@ import MealList from './compontents/organisms/MealList';
 import Navbar from './compontents/organisms/Navbar';
 import MealCard from './compontents/molecules/MealCard';
 import MyRecipes from './compontents/organisms/MyRecipes';
+import Profile from './compontents/organisms/Profile';
+
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
@@ -49,7 +51,7 @@ const App = () => {
         {currentPage === 'myRecipes' && <MyRecipes />}
 
         {/* PROFILO */}
-        {currentPage === 'profile' && <p>Qui puoi modificare il tuo profilo</p>}
+         {currentPage === 'profile' && <Profile />}
       </div>
     </div>
   );

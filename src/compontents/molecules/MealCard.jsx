@@ -46,7 +46,7 @@ const MealCard = ({ meal }) => {
         className={`favorite-btn ${isFavorite ? 'favorited' : ''}`}
         onClick={toggleFavorite}
       >
-        {isFavorite ? '❤️ Preferito' : '🤍 Aggiungi ai preferiti'}
+        {isFavorite ? '❤️ Preferito' : '🤍'}
       </button>
     </div>
   );
