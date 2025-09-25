@@ -21,11 +21,12 @@ const MealCard = ({ meal }) => {
       updatedFavorites = favorites.filter((m) => m.idMeal !== meal.idMeal);
       setIsFavorite(false);
     } else {
-      // Aggiungi ai preferiti (salviamo l'intero oggetto meal)
+      // Aggiungi la ricetta completa ai preferiti
       updatedFavorites = [...favorites, meal];
       setIsFavorite(true);
     }
 
+    // Salva aggiornamento in localStorage
     localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };
 

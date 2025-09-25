@@ -1,5 +1,4 @@
-// src/components/organisms/MyRecipes.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './MyRecipes.css';
 
 const MyRecipes = () => {
@@ -7,7 +6,13 @@ const MyRecipes = () => {
   const [ingredients, setIngredients] = useState('');
   const [instructions, setInstructions] = useState('');
   const [image, setImage] = useState(null);
-  const [recipes, setRecipes] = useState([]); // Lista di ricette create
+  const [recipes, setRecipes] = useState([]);
+
+  // Carica le ricette salvate all’avvio
+  useEffect(() => {
+    const savedRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
+    setRecipes(savedRecipes);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,7 +23,9 @@ const MyRecipes = () => {
       instructions,
       image: image ? URL.createObjectURL(image) : null
     };
-    setRecipes([...recipes, newRecipe]);
+    const updatedRecipes = [...recipes, newRecipe];
+    setRecipes(updatedRecipes);
+    localStorage.setItem('myRecipes', JSON.stringify(updatedRecipes));
 
     // Resetta i campi
     setTitle('');
@@ -59,7 +66,6 @@ const MyRecipes = () => {
         <button type="submit">Crea ricetta</button>
       </form>
 
-      {/* Lista delle ricette create */}
       <div className="created-recipes">
         {recipes.map((r) => (
           <div className="recipe-card" key={r.id}>
