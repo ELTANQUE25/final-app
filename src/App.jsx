@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import './index.css';
 import MealList from './compontents/organisms/MealList';
 import Navbar from './compontents/organisms/Navbar';
-import MealCard from './compontents/molecules/MealCard'
+import MealCard from './compontents/molecules/MealCard';
+import MyRecipes from './compontents/organisms/MyRecipes';
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
@@ -26,8 +27,10 @@ const App = () => {
       <Navbar onNavClick={handleNavClick} />
 
       <div className="main-content">
+        {/* HOME */}
         {currentPage === 'home' && <MealList />}
 
+        {/* PREFERITI */}
         {currentPage === 'favorites' && (
           <>
             {favoriteMeals.length === 0 ? (
@@ -42,7 +45,10 @@ const App = () => {
           </>
         )}
 
-        {currentPage === 'myRecipes' && <p>Qui vedrai le tue ricette</p>}
+        {/* LE MIE RICETTE */}
+        {currentPage === 'myRecipes' && <MyRecipes />}
+
+        {/* PROFILO */}
         {currentPage === 'profile' && <p>Qui puoi modificare il tuo profilo</p>}
       </div>
     </div>
