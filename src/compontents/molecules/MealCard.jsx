@@ -34,17 +34,22 @@ const MealCard = ({ meal }) => {
       <h3>{translateMeal(meal.strMeal)}</h3>
       <img src={meal.strMealThumb} alt={meal.strMeal} />
       <p>{translateCategory(meal.strCategory)}</p>
-      {meal.strSource && (
-        <a href={meal.strSource} target="_blank" rel="noopener noreferrer">
-          Scopri la ricetta
-        </a>
-      )}
-      <button
-        className={`favorite-btn ${isFavorite ? 'favorited' : ''}`}
-        onClick={toggleFavorite}
-      >
-        {isFavorite ? '❤️ Preferito' : '🤍'}
-      </button>
+
+      {/* Contenitore per il link e il pulsante */}
+      <div className="meal-card-actions">
+        {meal.strSource && (
+          <a href={meal.strSource} target="_blank" rel="noopener noreferrer">
+            Scopri la ricetta
+          </a>
+        )}
+
+        <button
+          className={`favorite-btn ${isFavorite ? 'favorited' : ''}`}
+          onClick={toggleFavorite}
+        >
+          {isFavorite ? '❤️ Preferito' : '🤍'}
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,19 +1,34 @@
-.favorite-btn {
+.meal-card-actions {
+  display: flex;
+  justify-content: space-between; /* Mette il link a sinistra e il pulsante a destra */
+  align-items: center;
   margin-top: 10px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
-  background-color: #ff9974
 }
 
-.favorite-btn.favorited {
+.meal-card-actions a {
+  color: #ff7f50;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.meal-card-actions a:hover {
+  text-decoration: underline;
+}
+
+.favorite-btn {
   background-color: #ff7f50;
   color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .favorite-btn:hover {
-  background-color: #b23d13;
+  background-color: #e76f3c;
+}
+
+.favorite-btn.favorited {
+  background-color: #e74c3c; /* Colore rosso per cuore preferito */
 }
