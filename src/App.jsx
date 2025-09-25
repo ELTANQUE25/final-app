@@ -6,7 +6,7 @@ import Navbar from './compontents/organisms/Navbar';
 import MealCard from './compontents/molecules/MealCard';
 import MyRecipes from './compontents/organisms/MyRecipes';
 import Profile from './compontents/organisms/Profile';
-
+import Footer from './compontents/organisms/Footer';
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
@@ -16,7 +16,6 @@ const App = () => {
     setCurrentPage(page);
   };
 
-  // Carica i preferiti da localStorage ogni volta che si entra nella pagina "favorites"
   useEffect(() => {
     if (currentPage === 'favorites') {
       const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
@@ -52,8 +51,11 @@ const App = () => {
         {currentPage === 'myRecipes' && <MyRecipes />}
 
         {/* PROFILO */}
-         {currentPage === 'profile' && <Profile />}
+        {currentPage === 'profile' && <Profile />}
       </div>
+
+      {/* FOOTER */}
+      <Footer />
     </div>
   );
 };

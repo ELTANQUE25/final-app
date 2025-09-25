@@ -88,6 +88,7 @@ h1 {
   flex-direction: column;   /* disposti verticalmente */
   align-items: center;      /* centra orizzontalmente */
   justify-content: center;  /* centra verticalmente */
-  min-height: calc(100vh - 120px); /* altezza minima della pagina */
+  max-width: 1200px;
+  margin: 0 auto; /* centra la pagina */
   padding: 20px;
 }
