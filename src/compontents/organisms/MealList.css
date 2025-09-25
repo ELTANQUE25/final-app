@@ -1,18 +1,49 @@
 /* src/components/organisms/MealList.css */
 
-/* Centra il titolo, input e pulsante */
 .search-container {
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centra tutto orizzontalmente */
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   gap: 10px;
+  text-align: center;
 }
+
+.search-container h2 {
+  margin: 0;
+}
+
+/* Wrapper per input + button affiancati */
+.search-box {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.search-box input {
+  flex: 1; /* l’input occupa tutto lo spazio disponibile */
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.search-box input {
+  flex: 1; /* l’input occupa tutto lo spazio disponibile */
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
 
 .search-container input {
   padding: 8px 12px;
   width: 250px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  text-align: center; /* opzionale: centra il testo dentro l’input */
 }
 
 .search-container button {
@@ -23,6 +54,10 @@
   padding: 8px 16px;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+
+.search-container button:hover {
+  background-color: #e76f3c;
 }
 
 .search-container button:hover {
@@ -75,4 +110,29 @@
 
 .meal-card:hover {
   transform: translateY(-5px);
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #ff7f50;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-weight: bold;
 }
