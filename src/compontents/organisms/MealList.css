@@ -1,0 +1,78 @@
+/* src/components/organisms/MealList.css */
+
+/* Centra il titolo, input e pulsante */
+.search-container {
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  gap: 10px;
+}
+
+.search-container input {
+  padding: 8px 12px;
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.search-container button {
+  background-color: #ff7f50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-container button:hover {
+  background-color: #e76f3c;
+}
+
+/* Griglia delle card */
+.meal-list {
+  display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 8px;
+}
+
+/* Stile per ogni card */
+.meal-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.meal-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.meal-card h3 {
+  color: #ff7f50;
+  font-size: 1.5rem;
+}
+
+.meal-card p {
+  color: #666;
+}
+
+.meal-card a {
+  color: #ff7f50;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.meal-card a:hover {
+  text-decoration: underline;
+}
+
+.meal-card:hover {
+  transform: translateY(-5px);
+}

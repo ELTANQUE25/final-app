@@ -53,19 +53,41 @@ button:hover {
 .app-header {
   background-color: #ff7f50; /* Colore arancione */
   color: white;
-  padding: 20px 0;
+  padding: 20px;
   border-radius: 5px;
   margin-bottom: 30px;
-  text-align: center;
+
+  display: flex;             /* Flexbox per affiancare logo e titolo */
+  justify-content: center;   /* Centra il contenuto orizzontalmente */
+  align-items: center;       /* Centra il contenuto verticalmente */
 }
 
+/* Contenitore per logo e titolo */
+.header-content {
+  display: flex;
+  align-items: center;  /* Allinea verticalmente logo e h1 */
+  gap: 15px;            /* Spazio tra logo e titolo */
+}
+
+/* Stile per il logo */
 .logo {
-  width: 100px; /* Imposta una dimensione per il logo */
+  width: 100px;  /* Puoi modificare la dimensione */
   height: auto;
 }
 
 /* Titolo */
 h1 {
   font-size: 2.5rem;
-  margin-top: 10px;
+  margin: 0; /* Rimuove il margine per non avere troppo spazio */
+}
+/* src/index.css */
+
+/* Contenitore principale della pagina */
+.main-content {
+  display: flex;
+  flex-direction: column;   /* disposti verticalmente */
+  align-items: center;      /* centra orizzontalmente */
+  justify-content: center;  /* centra verticalmente */
+  min-height: calc(100vh - 120px); /* altezza minima della pagina */
+  padding: 20px;
 }

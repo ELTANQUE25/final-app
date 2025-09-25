@@ -1,21 +1,23 @@
 // src/App.jsx
 import React from 'react';
+import './index.css';
 import logo from './assets/logo.png';
 import MealList from './compontents/organisms/MealList';
-import './index.css'; // Importa il file CSS globale
 
 const App = () => {
   return (
     <div className="app-container">
       <header className="app-header">
-        <img 
-          src="/assets/logo.png"  // Aggiungi il percorso del tuo logo
-          alt="Logo"
-          className="logo"
-        />
-        <h1>Benvenuto nella tua Meal App!</h1>
+        <div className="header-content">
+          <img src={logo} alt="Logo" className="logo" />
+          <h1>Benvenuto in Meal App!</h1>
+        </div>
       </header>
-      <MealList />
+
+      {/* Contenitore principale centrato */}
+      <div className="main-content">
+        <MealList />
+      </div>
     </div>
   );
 };

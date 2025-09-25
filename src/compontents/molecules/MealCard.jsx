@@ -8,7 +8,7 @@ const MealCard = ({ meal }) => {
       <img src={meal.strMealThumb} alt={meal.strMeal} width="200" />
       <p>{meal.strCategory}</p>
       <a href={meal.strSource} target="_blank" rel="noopener noreferrer">
-        Recipe Source
+        Scopri la ricetta
       </a>
     </div>
   );

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import MealCard from '../molecules/MealCard';
 import { fetchMeals } from '../../services/mealService';
+import './MealList.css'; // Import del CSS
 
 const MealList = () => {
   const [meals, setMeals] = useState([]);
@@ -11,7 +12,6 @@ const MealList = () => {
   const searchMeals = async (meal = '') => {
     setLoading(true);
     const mealsData = await fetchMeals(meal);
-    console.log('Dati dei pasti:', mealsData);  // Verifica che i dati vengano ricevuti
     setMeals(mealsData);
     setLoading(false);
   };
@@ -20,41 +20,30 @@ const MealList = () => {
     searchMeals();
   }, []);
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleSearchSubmit = () => {
-    searchMeals(searchTerm);
-  };
-
   return (
-    <div>
-      <h2>I nostri piatti</h2>
-
-      {/* Barra di ricerca */}
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={handleSearchChange}
-        placeholder="Cerca un piatto..."
-      />
-      <button onClick={handleSearchSubmit}>Cerca</button>
+    <>
+      <div className="search-container">
+        <h2>Meal List</h2>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Cerca un piatto..."
+        />
+        <button onClick={() => searchMeals(searchTerm)}>Cerca</button>
+      </div>
 
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div>
-          {meals.length === 0 ? (
-            <p>Nessun piatto trovato.</p>
-          ) : (
-            meals.map((meal) => (
-              <MealCard key={meal.idMeal} meal={meal} />
-            ))
-          )}
+        <div className="meal-list">
+          {meals && meals.length > 0
+            ? meals.map((meal) => <MealCard key={meal.idMeal} meal={meal} />)
+            : <p>Nessun piatto trovato.</p>
+          }
         </div>
       )}
-    </div>
+    </>
   );
 };
 
