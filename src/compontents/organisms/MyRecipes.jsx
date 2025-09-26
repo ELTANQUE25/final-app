@@ -1,3 +1,4 @@
+// src/components/organisms/MyRecipes.jsx
 import React, { useState, useEffect } from 'react';
 import './MyRecipes.css';
 
@@ -6,15 +7,18 @@ const MyRecipes = () => {
   const [ingredients, setIngredients] = useState('');
   const [instructions, setInstructions] = useState('');
   const [image, setImage] = useState(null);
-  const [difficulty, setDifficulty] = useState('Facile'); // Difficoltà di default
+  const [difficulty, setDifficulty] = useState('Seleziona la difficolta'); // Difficoltà di default
+  const [prepTime, setPrepTime] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [editId, setEditId] = useState(null);
 
+  // Carica le ricette salvate dal localStorage
   useEffect(() => {
     const savedRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
     setRecipes(savedRecipes);
   }, []);
 
+  // Funzione per salvare la ricetta
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -33,7 +37,8 @@ const MyRecipes = () => {
             ingredients,
             instructions,
             image: imageUrl,
-            difficulty
+            difficulty,
+            prepTime
           };
         }
         return r;
@@ -48,18 +53,39 @@ const MyRecipes = () => {
         ingredients,
         instructions,
         image: imageUrl,
-        difficulty
+        difficulty,
+        prepTime
       };
       const updatedRecipes = [...recipes, newRecipe];
       setRecipes(updatedRecipes);
       localStorage.setItem('myRecipes', JSON.stringify(updatedRecipes));
     }
 
+    // Reset dei campi
     setTitle('');
     setIngredients('');
     setInstructions('');
     setImage(null);
-    setDifficulty('Facile'); // Reset difficoltà
+    setDifficulty('Facile');
+    setPrepTime('');
+  };
+
+  // Funzione per modificare una ricetta
+  const handleEdit = (recipe) => {
+    setEditId(recipe.id);
+    setTitle(recipe.title);
+    setIngredients(recipe.ingredients);
+    setInstructions(recipe.instructions);
+    setImage(recipe.image ? recipe.image : null);
+    setDifficulty(recipe.difficulty);
+    setPrepTime(recipe.prepTime);
+  };
+
+  // Funzione per eliminare una ricetta
+  const handleDelete = (id) => {
+    const updatedRecipes = recipes.filter(r => r.id !== id);
+    setRecipes(updatedRecipes);
+    localStorage.setItem('myRecipes', JSON.stringify(updatedRecipes));
   };
 
   return (
@@ -87,23 +113,33 @@ const MyRecipes = () => {
           onChange={(e) => setInstructions(e.target.value)}
           required
         />
-
-          <label htmlFor="difficulty">Difficoltà</label>
-          <select
-    value={difficulty}
-    onChange={(e) => setDifficulty(e.target.value)}
-    required
-  >
-    <option  value="" disabled>Seleziona la difficoltà</option> {/* Placeholder */}
-    <option value="Facile">Facile 🍳</option>
-    <option value="Media">Media 🍳🍳</option>
-    <option value="Difficile">Difficile 🍳🍳🍳</option>
-  </select>
-                <input
+        <input
           type="file"
           accept="image/*"
           onChange={(e) => setImage(e.target.files[0])}
         />
+        
+        {/* Selezione difficoltà */}
+        <select
+          value={difficulty}
+          onChange={(e) => setDifficulty(e.target.value)}
+          required
+        >
+          <option value="" disabled>Seleziona la difficoltà</option>
+          <option value="Facile">Facile 🍳</option>
+          <option value="Media">Media 🍳🍳</option>
+          <option value="Difficile">Difficile 🍳🍳🍳</option>
+        </select>
+
+        {/* Tempo di preparazione */}
+        <input
+          type="number"
+          placeholder="Tempo di preparazione (minuti)"
+          value={prepTime}
+          onChange={(e) => setPrepTime(e.target.value)}
+          required
+        />
+
         <button type="submit">{editId ? 'Salva modifiche' : 'Crea ricetta'}</button>
       </form>
 
@@ -115,7 +151,7 @@ const MyRecipes = () => {
             <h3>{r.title}</h3>
             <p><strong>Ingredienti:</strong> {r.ingredients}</p>
             <p><strong>Preparazione:</strong> {r.instructions}</p>
-            <p><strong>Difficoltà:</strong> {r.difficulty}</p> {/* Mostra la difficoltà */}
+            <p><strong>Difficoltà:</strong> {r.difficulty}</p>
             <div className="card-buttons">
               <button className="delete-btn" onClick={() => handleDelete(r.id)}>Elimina</button>
               <button className="edit-btn" onClick={() => handleEdit(r)}>Modifica</button>
