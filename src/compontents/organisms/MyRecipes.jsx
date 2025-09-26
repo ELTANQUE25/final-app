@@ -88,6 +88,7 @@ const MyRecipes = () => {
           required
         />
 
+          <label htmlFor="difficulty">Difficoltà</label>
           <select
     value={difficulty}
     onChange={(e) => setDifficulty(e.target.value)}
