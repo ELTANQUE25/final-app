@@ -9,11 +9,33 @@
 
 .my-recipes-form input,
 .my-recipes-form textarea,
+.my-recipes-form select,
 .my-recipes-form button {
   padding: 8px 12px;
   border-radius: 5px;
   border: 1px solid #ccc;
   font-size: 1rem;
+}
+
+.my-recipes-form select {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* Stile per l'opzione placeholder */
+.my-recipes-form select option:disabled {
+  color: #aaa;
+  font-style: italic;  /* Fa sembrare il testo un placeholder */
+}
+
+/* Cambia il colore per le altre opzioni */
+.my-recipes-form select option:not(:disabled) {
+  color: #333;
+}
+
 }
 
 .my-recipes-form button {
@@ -91,21 +113,4 @@
   text-align: center;
   font-weight: bold;
   margin-bottom: 20px;
-}
-
-/* Media query per mobile */
-@media (max-width: 600px) {
-  .created-recipes {
-    grid-template-columns: 1fr; /* una card per riga */
-    gap: 10px;
-  }
-
-  .my-recipes-form {
-    max-width: 90%;
-  }
-
-  .card-buttons {
-    flex-direction: column;
-    gap: 5px;
-  }
 }

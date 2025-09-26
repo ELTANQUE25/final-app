@@ -6,10 +6,10 @@ const MyRecipes = () => {
   const [ingredients, setIngredients] = useState('');
   const [instructions, setInstructions] = useState('');
   const [image, setImage] = useState(null);
+  const [difficulty, setDifficulty] = useState('Facile'); // Difficoltà di default
   const [recipes, setRecipes] = useState([]);
-  const [editId, setEditId] = useState(null); // id della ricetta in modifica
+  const [editId, setEditId] = useState(null);
 
-  // Carica le ricette salvate all’avvio
   useEffect(() => {
     const savedRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
     setRecipes(savedRecipes);
@@ -18,8 +18,13 @@ const MyRecipes = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    let imageUrl = null;
+    if (image) {
+      const imageRef = URL.createObjectURL(image);
+      imageUrl = imageRef;
+    }
+
     if (editId) {
-      // Modifica ricetta esistente
       const updatedRecipes = recipes.map(r => {
         if (r.id === editId) {
           return {
@@ -27,7 +32,8 @@ const MyRecipes = () => {
             title,
             ingredients,
             instructions,
-            image: image ? URL.createObjectURL(image) : r.image
+            image: imageUrl,
+            difficulty
           };
         }
         return r;
@@ -36,50 +42,67 @@ const MyRecipes = () => {
       localStorage.setItem('myRecipes', JSON.stringify(updatedRecipes));
       setEditId(null);
     } else {
-      // Crea nuova ricetta
       const newRecipe = {
         id: Date.now(),
         title,
         ingredients,
         instructions,
-        image: image ? URL.createObjectURL(image) : null
+        image: imageUrl,
+        difficulty
       };
       const updatedRecipes = [...recipes, newRecipe];
       setRecipes(updatedRecipes);
       localStorage.setItem('myRecipes', JSON.stringify(updatedRecipes));
     }
 
-    // Resetta i campi
     setTitle('');
     setIngredients('');
     setInstructions('');
     setImage(null);
-  };
-
-  const handleDelete = (id) => {
-    const updatedRecipes = recipes.filter(r => r.id !== id);
-    setRecipes(updatedRecipes);
-    localStorage.setItem('myRecipes', JSON.stringify(updatedRecipes));
-  };
-
-  const handleEdit = (recipe) => {
-    setTitle(recipe.title);
-    setIngredients(recipe.ingredients);
-    setInstructions(recipe.instructions);
-    setImage(null);
-    setEditId(recipe.id);
+    setDifficulty('Facile'); // Reset difficoltà
   };
 
   return (
     <div className="my-recipes-container">
-      <p className='Ricette'>Qui potrai creare e modificare le tue ricette</p>
+      <p>Qui potrai creare e modificare le tue ricette</p>
 
-      {/* Form verticale centrata */}
+      {/* Form di creazione ricetta */}
       <form className="my-recipes-form" onSubmit={handleSubmit}>
-        <input type="text" placeholder="Titolo della ricetta" value={title} onChange={(e) => setTitle(e.target.value)} required />
-        <textarea placeholder="Ingredienti" value={ingredients} onChange={(e) => setIngredients(e.target.value)} required />
-        <textarea placeholder="Preparazione" value={instructions} onChange={(e) => setInstructions(e.target.value)} required />
-        <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
+        <input
+          type="text"
+          placeholder="Titolo della ricetta"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+        <textarea
+          placeholder="Ingredienti"
+          value={ingredients}
+          onChange={(e) => setIngredients(e.target.value)}
+          required
+        />
+        <textarea
+          placeholder="Preparazione"
+          value={instructions}
+          onChange={(e) => setInstructions(e.target.value)}
+          required
+        />
+
+          <select
+    value={difficulty}
+    onChange={(e) => setDifficulty(e.target.value)}
+    required
+  >
+    <option  value="" disabled>Seleziona la difficoltà</option> {/* Placeholder */}
+    <option value="Facile">Facile 🍳</option>
+    <option value="Media">Media 🍳🍳</option>
+    <option value="Difficile">Difficile 🍳🍳🍳</option>
+  </select>
+                <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files[0])}
+        />
         <button type="submit">{editId ? 'Salva modifiche' : 'Crea ricetta'}</button>
       </form>
 
@@ -91,6 +114,7 @@ const MyRecipes = () => {
             <h3>{r.title}</h3>
             <p><strong>Ingredienti:</strong> {r.ingredients}</p>
             <p><strong>Preparazione:</strong> {r.instructions}</p>
+            <p><strong>Difficoltà:</strong> {r.difficulty}</p> {/* Mostra la difficoltà */}
             <div className="card-buttons">
               <button className="delete-btn" onClick={() => handleDelete(r.id)}>Elimina</button>
               <button className="edit-btn" onClick={() => handleEdit(r)}>Modifica</button>
