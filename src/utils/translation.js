@@ -1,17 +1,17 @@
 // Oggetto di traduzione per categorie e piatti comuni
 const translationMap = {
   categories: {
-    "Beef": "Manzo",
-    "Chicken": "Pollo",
-    "Dessert": "Dolce",
-    "Pasta": "Pasta",
-    "Seafood": "Pesce",
-    "Vegetarian": "Vegetariano",
+    "Beef": "Manzo🍖",
+    "Chicken": "Pollo 🍗",
+    "Dessert": "Dolce 🧁",
+    "Pasta": "Pasta 🍝",
+    "Seafood": "Pesce 🐟",
+    "Vegetarian": "Vegetariano 🥬",
     "Vegan": "Vegano",
-    "Miscellaneous": "Altro",
-    "Side":"Contorno",
-    "Lamb":"Agnello",
-    "Pork":"Maiale",
+    "Miscellaneous": "Altro 🥣",
+    "Side":"Contorno 🥗",
+    "Lamb":"Agnello 🥩",
+    "Pork":"Maiale 🐖",
   },
   meals: {
     "Beef Wellington": "Wellington di manzo",
